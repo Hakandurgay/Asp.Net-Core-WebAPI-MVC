@@ -15,7 +15,7 @@ namespace AspNetCore.Web.Data.Repositories
         public readonly DbContext _context;
         public readonly DbSet<TEntity> _dbSet;
 
-        public RepositoryGeneric(AppDbContext context)
+        public RepositoryGeneric(DbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
@@ -32,9 +32,9 @@ namespace AspNetCore.Web.Data.Repositories
             await _dbSet.AddRangeAsync(entities);
         }
 
-        public async Task<IEnumerable<TEntity>> Where(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            return _dbSet.Where(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()

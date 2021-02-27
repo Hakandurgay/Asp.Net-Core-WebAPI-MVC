@@ -21,4 +21,8 @@
     <ProjectReference Include="..\AspNetCore.Web.Core\AspNetCore.Web.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UnitOfWorks\" />
+  </ItemGroup>
+
 </Project>

@@ -12,7 +12,7 @@ namespace AspNetCore.Web.Data.Repositories
     {
         private AppDbContext appDbContext { get => _context as AppDbContext; }
 
-        public CategoryRepository(AppDbContext context):base(context)
+        public CategoryRepository(DbContext context):base(context)
         {
 
         }

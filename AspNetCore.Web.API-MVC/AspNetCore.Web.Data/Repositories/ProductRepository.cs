@@ -14,7 +14,7 @@ namespace AspNetCore.Web.Data.Repositories
         public AppDbContext _appDbContext { get => _context as AppDbContext; } //dbcontext appdbcontext'e çevrilmezse category ve product gelmez çünkü bunlar
                                                                               //appDbContext'te tanımlı
 
-        public ProductRepository(AppDbContext context) : base(context)
+        public ProductRepository(DbContext context) : base(context)
         {
 
         }

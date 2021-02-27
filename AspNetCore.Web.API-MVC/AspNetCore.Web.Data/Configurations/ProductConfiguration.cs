@@ -9,8 +9,6 @@ namespace AspNetCore.Web.Data.Configurations
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
-
-
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(x => x.Id);  //primary key yapar
