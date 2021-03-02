@@ -17,7 +17,7 @@ namespace AspNetCore.Web.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
-  
+        public DbSet<Person> Persons { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) //
@@ -25,9 +25,13 @@ namespace AspNetCore.Web.Data
             //modelBuilder.Entity<Product>().Property(x => x.Id).IsRequired(); bu şekilde de belirtilebilirdi ama dbcontextin içi sade olması için ayrı sınıflarda yapıldı
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonConfiguration());
 
             modelBuilder.ApplyConfiguration(new ProductSeed(new int[] { 1, 2 }));
             modelBuilder.ApplyConfiguration(new CategorySeed(new int[] { 1, 2 }));
+
+
+
         }
     }
 

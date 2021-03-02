@@ -18,6 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Web.API.DTOs;
+using AspNetCore.Web.API.Extensions;
+using AspNetCore.Web.API.Filters;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace AspNetCore.Web.API
 {
@@ -35,14 +41,14 @@ namespace AspNetCore.Web.API
         {
 
             services.AddAutoMapper(typeof(Startup));
-
+          
             services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
             services.AddScoped(typeof(IServiceGeneric<>), typeof(ServiceGeneric<>));
             services.AddScoped<ICategoryService, CategoryService >();
             services.AddScoped<IProductService, ProductService >();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
+            services.AddScoped<NotFoundFilter>(); //not found filter classý içinde dependency injection ile nesne aldýðý için burada tanýmlandý
 
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -50,6 +56,15 @@ namespace AspNetCore.Web.API
             });
 
             services.AddControllers();
+            services.Configure< ApiBehaviorOptions > (options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;   //filterlarý kontrol etmez bizim yazacaðýmýzý beliritir asp.net core un default hatalarýný engeller
+            });
+
+            //services.AddControllers(o =>          default olarak bütün controllerda filterý tanýmlar
+            //{
+            //    o.Filters.Add(new ValidationFilter());
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +74,9 @@ namespace AspNetCore.Web.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCustomException();  //extension metod
+
 
             app.UseHttpsRedirection();
 
