@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Web.API.DTOs;
 
 namespace AspNetCore.Web.MVC.Controllers
 {
@@ -29,9 +30,9 @@ namespace AspNetCore.Web.MVC.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(ErrorDto errorDto)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(errorDto);
         }
     }
 }

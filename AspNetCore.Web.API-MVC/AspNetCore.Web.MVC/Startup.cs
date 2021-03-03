@@ -8,6 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Web.Core.Repositories;
+using AspNetCore.Web.Core.Service;
+using AspNetCore.Web.Core.UnitOfWorks;
+using AspNetCore.Web.Data;
+using AspNetCore.Web.Data.Repositories;
+using AspNetCore.Web.Data.UnitOfWorks;
+using AspNetCore.Web.MVC.Filters;
+using AspNetCore.Web.Service.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCore.Web.MVC
 {
@@ -23,7 +32,20 @@ namespace AspNetCore.Web.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
+            services.AddScoped(typeof(IServiceGeneric<>), typeof(ServiceGeneric<>));
+            services.AddScoped<ICategoryService, CategoryService>();   //her larþýlaþtýðýnda farklý bir nesne örneði oluþturmasý için addtransient kullanýlýr
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();  
             services.AddControllersWithViews();
+
+            services.AddScoped<NotFoundFilter>(); 
+
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(), o => { o.MigrationsAssembly("AspNetCore.Web.Data"); });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CategoryDto> 
+    @*namespace viewimportsta olduğu için tekrar tekrar yazmaya gerek kalmadı*@
+
+@{
+
+}
+<h1>Kategoriler</h1>
+<a class="btn btn-primary" asp-action="Create">Kategori Ekle</a>
+<table>
+    <thead>
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>İşlemler</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td> <a asp-action="Update" asp-route-id="@item.Id">Güncelle</a> </td>
+            <td> <a asp-action="Delete" asp-route-id="@item.Id">Sil</a> </td>
+      
+        </tr>
+    }
+    </tbody>
+</table>
