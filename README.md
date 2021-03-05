@@ -5,7 +5,7 @@ Data katmanı, Core katmanı Service katmanı ile oluşturulan ve bu katmanlarda
 
 Generic Repository Pattern, 
 
-Unit Of Work tarasım deseni,
+Unit Of Work tasarım deseni,
 
 Automapper kütüphanesi,
 
