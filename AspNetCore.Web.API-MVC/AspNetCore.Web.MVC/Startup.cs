@@ -14,6 +14,7 @@ using AspNetCore.Web.Core.UnitOfWorks;
 using AspNetCore.Web.Data;
 using AspNetCore.Web.Data.Repositories;
 using AspNetCore.Web.Data.UnitOfWorks;
+using AspNetCore.Web.MVC.ApiService;
 using AspNetCore.Web.MVC.Filters;
 using AspNetCore.Web.Service.Services;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,12 @@ namespace AspNetCore.Web.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddHttpClient<CategoryApiService>(options =>
+            {
+                options.BaseAddress=new Uri(Configuration["baseUrl"]);
+            });
+
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
             services.AddScoped(typeof(IServiceGeneric<>), typeof(ServiceGeneric<>));

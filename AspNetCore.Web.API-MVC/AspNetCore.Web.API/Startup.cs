@@ -40,6 +40,7 @@ namespace AspNetCore.Web.API
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddAutoMapper(typeof(Startup));
           
             services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>));
